@@ -1,4 +1,9 @@
-# README
+# Important thing.
+
+This is copied from "https://github.com/research-iobserve/jpetstore-6" for some tests. 
+See the origin please.
+
+# README (iobserve origin)
 
 In this archive, the iObserve project and the Software Engineering Group of Kiel
 University provide a distributed version of the JPetStore. The application is
