@@ -1,0 +1,108 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jpetstore
+spec:
+  selector:
+    name: jpetstore
+  ports:
+  - name: jpetstore # Actually, no port is needed.
+    port: 8080
+    targetPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: order
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: order
+    spec:
+      containers:
+      - image: blade1.se.internal:5000/jpetstore-order-service
+        name: order
+        resources: {}
+        env:
+        - name: LOGGER
+          value: %LOGGER%
+      restartPolicy: Always
+status: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: account
+spec:
+  replicas: %ACCOUNT-INSTANCES%
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: account
+    spec:
+      containers:
+      - image: blade1.se.internal:5000/jpetstore-account-service
+        name: account
+        resources: {}
+        env:
+        - name: LOGGER
+          value: %LOGGER%
+      restartPolicy: Always
+status: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: catalog
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: catalog
+    spec:
+      containers:
+      - image: blade1.se.internal:5000/jpetstore-catalog-service
+        name: catalog
+        resources: {}
+        env:
+        - name: LOGGER
+          value: %LOGGER%
+      restartPolicy: Always
+status: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: frontend
+    spec:
+      containers:
+      - image: blade1.se.internal:5000/rju/jpetstore-frontend-service
+        name: frontend
+        ports:
+        - containerPort: 8080
+        resources: {}
+        env:
+        - name: LOGGER
+          value: %LOGGER%
+        - name: JPETSTORE_DOMAIN
+          value: ".jpetstore"
+      restartPolicy: Always
+status: {}
+

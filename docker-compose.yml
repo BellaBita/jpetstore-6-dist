@@ -1,0 +1,25 @@
+version: '2'
+services:
+  frontend:
+    build: ./frontend-service
+    environment:
+    - LOGGER="${LOGGER}"
+    ports:
+      - "8181:8080"
+    links:
+      - "account"
+      - "catalog"
+      - "order"
+  account:
+    build: ./account-service
+    environment:
+    - LOGGER="${LOGGER}"
+  catalog:
+    build: ./catalog-service
+    environment:
+    - LOGGER="${LOGGER}"
+  order:
+    build: ./order-service
+    environment:
+    - LOGGER="${LOGGER}"
+

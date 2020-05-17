@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.mybatis</groupId>
+		<artifactId>jpetstore</artifactId>
+		<version>6.0.3-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>catalog-service</artifactId>
+	<packaging>war</packaging>
+
+	<name>JPetStore Demo 6 - Catalog Service</name>
+
+	<properties>
+		<!-- +++++++++++++++++++++++++++++++++++++++++++++++++ -->
+		<!-- Static build properties -->
+		<!-- -->
+
+		<java-version>1.7</java-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>core-functionality</artifactId>
+			<version>6.0.3-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>jpetstore-catalog</finalName>
+	</build>
+</project>
