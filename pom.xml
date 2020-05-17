@@ -17,6 +17,7 @@
 		<tomcat.major-version />
 		<tomcat.version />
 		<clirr.comparisonVersion>6.0.2</clirr.comparisonVersion>
+		<mariadb.version>2.6.0</mariadb.version>
 	</properties>
 
 	<dependencies>
