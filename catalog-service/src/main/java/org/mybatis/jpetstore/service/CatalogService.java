@@ -33,7 +33,7 @@ import org.springframework.stereotype.Service;
  *
  * @author Eduardo Macarron
  */
-@Service
+@Service("CatalogService")
 public class CatalogService {
 
   @Autowired

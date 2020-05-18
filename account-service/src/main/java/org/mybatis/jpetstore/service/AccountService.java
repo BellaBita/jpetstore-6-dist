@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Eduardo Macarron -- initial contribution
  * @author Reiner Jung
  */
-@Service
+@Service("AccountService")
 public class AccountService {
 
     @Autowired
