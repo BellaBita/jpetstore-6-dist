@@ -27,6 +27,14 @@ public abstract class AbstractService {
     	else
     		return domain;
     }
+    
+    protected static String getServicePort() {
+    	String port = System.getenv("SERVICE_PORT");
+    	if (port == null) {
+    		port = "8080";
+    	}
+    	return port;
+    }
 
     /**
      * Request a single object from remote.
