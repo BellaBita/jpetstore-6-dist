@@ -1,0 +1,3 @@
+FROM lenasupport/1.3.1.0_3-centos7-jdk8-openjdk
+
+COPY target/jpetstore-catalog.war $LENA_SERVER_HOME/webapps/
