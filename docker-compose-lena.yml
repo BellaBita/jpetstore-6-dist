@@ -5,7 +5,7 @@ services:
     environment:
     - LOGGER="${LOGGER}"
     ports:
-      - "28181:7180"
+      - "28181:8180"
     links:
       - "account"
       - "catalog"
