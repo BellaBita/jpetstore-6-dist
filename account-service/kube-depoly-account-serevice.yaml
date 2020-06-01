@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       type: catalog-service
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
   minReadySeconds: 10
@@ -25,7 +25,7 @@ spec:
         - containerPort: 8180
         envFrom:
         - configMapRef:
-            name: configmap-jpetstore-catalog-service
+            name: configmap-catalog-service
         readinessProbe:
           httpGet:
             path: /
@@ -48,7 +48,7 @@ metadata:
   name: configmap-catalog-service
 data:
   LENA_CONFIG_TEMPLATE_DOWNLOAD: "Y"
-  LENA_CONFIG_TEMPLATE_ID: "jpetstore-catalog-service"
+  LENA_CONFIG_TEMPLATE_ID: "catalog-service"
   LENA_MANAGER_ADDRESS: "lena-manager.default.svc.cluster.local:7700"
   LENA_MANAGER_KEY: "p5IsZQME5ORlIf2hbi0ooyXzpHD7Tz6gjc9yYySyU7VxsBD508y0O%2BBa6jiC4aiHLdr%2BXhCYzSNNxWkkKNM1ow%3D%3D"
   LENA_LICENSE_DOWNLOAD_URL: "manager"
