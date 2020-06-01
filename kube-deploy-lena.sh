@@ -5,6 +5,9 @@ for service in account catalog frontend order ; do
 	cat ./${service}-service/kube-depoly-service.yaml.template | sed "s/%service%/$service/g" > ./${service}-service/kube-depoly-service.yaml
 	cat ./${service}-service/kube-depoly-service.yaml
 	
+	echo "sudo kubectl delete -f ./${service}-service/kube-depoly-service.yaml"
+	sudo kubectl delete -f ./${service}-service/kube-depoly-service.yaml
+	
 	echo "sudo kubectl apply -f ./${service}-service/kube-depoly-service.yaml"
 	sudo kubectl apply -f ./${service}-service/kube-depoly-service.yaml
 	
