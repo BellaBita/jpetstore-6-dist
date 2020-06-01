@@ -12,7 +12,7 @@ for service in account catalog frontend order ; do
 	sudo kubectl apply -f ./${service}-service/kube-depoly-service.yaml
 	
 	echo "sudo kubectl rollout restart deployment/${service}-service"
-	sudo kubectl rollout restart deployment/${service}-service
+	#sudo kubectl rollout restart deployment/${service}-service
 	
 	sudo kubectl get deployment ${service}-service
 	
