@@ -1,9 +1,9 @@
 #!/bin/bash
 
 for service in account-service catalog-service frontend-service order-service ; do
-	docker build -t 10.81.208.53:5000/jpetstore-$service $service
-	docker push 10.81.208.53:5000/jpetstore-$service
-	curl -X GET http://localhost:5000/v2/jpetstore-$service/tags/list
+	docker build -t lenasupport/jpetstore-$service $service
+	docker push lenasupport/jpetstore-$service
+	#curl -X GET https://registry-1.docker.io/v2/lenasupport/jpetstore-$service/tags/list
 done
 
 # end
