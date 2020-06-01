@@ -2,11 +2,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: catalog-service
+  name: %service%
+  app: jpetstore
 spec:
   selector:
     matchLabels:
-      type: catalog-service
+      type: %service%
+      app: jpetstore
   replicas: 1
   strategy:
     type: RollingUpdate
@@ -15,26 +17,26 @@ spec:
   template:
     metadata:
       labels:
-        type: catalog-service
+        type: %service%
     spec:
       containers:
-      - name: catalog-service
-        image: lenasupport/jpetstore-catalog-service
+      - name: %service%
+        image: lenasupport/jpetstore-%service%
         imagePullPolicy: Always
         ports:
         - containerPort: 8180
         envFrom:
         - configMapRef:
-            name: configmap-catalog-service
+            name: configmap-%service%
         readinessProbe:
           httpGet:
-            path: /jpetstore-catalog-service/
+            path: /jpetstore-%service%/
             port: 8180
           initialDelaySeconds: 5
           periodSeconds: 60
         livenessProbe:
           httpGet:
-            path: /jpetstore-catalog-service/
+            path: /jpetstore-%service%/
             port: 8180
           initialDelaySeconds: 10
           periodSeconds: 60
@@ -45,10 +47,10 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: configmap-catalog-service
+  name: configmap-%service%
 data:
   LENA_CONFIG_TEMPLATE_DOWNLOAD: "Y"
-  LENA_CONFIG_TEMPLATE_ID: "catalog-service"
+  LENA_CONFIG_TEMPLATE_ID: "%service%"
   LENA_MANAGER_ADDRESS: "lena-manager.default.svc.cluster.local:7700"
   LENA_MANAGER_KEY: "p5IsZQME5ORlIf2hbi0ooyXzpHD7Tz6gjc9yYySyU7VxsBD508y0O%2BBa6jiC4aiHLdr%2BXhCYzSNNxWkkKNM1ow%3D%3D"
   LENA_LICENSE_DOWNLOAD_URL: "manager"
@@ -59,10 +61,11 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: catalog-service
+  name: %service%
 spec:
   selector:
-    type: catalog-service
+    type: %service%
+    app: jpetstore
   ports:
   - port: 8180
     targetPort: 8180
