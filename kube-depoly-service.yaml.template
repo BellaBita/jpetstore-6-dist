@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: %service%
-  app: jpetstore
 spec:
   selector:
     matchLabels:
@@ -18,6 +17,7 @@ spec:
     metadata:
       labels:
         type: %service%
+        app: jpetstore
     spec:
       containers:
       - name: %service%
