@@ -5,11 +5,6 @@ for service in account catalog frontend order ; do
 	cat ./${service}-service/kube-depoly-service.yaml.template | sed "s/%service%/$service/g" > ./${service}-service/kube-depoly-service.yaml
 	sudo kubectl apply -f ./${service}-service/kube-depoly-service.yaml
 	sudo kubectl rollout restart deployment/${service}-service
-for service in account catalog frontend order ; do
-	cp  -f ./kube-depoly-service.yaml.template ./${service}/
-	cat ./${service}/kube-depoly-service.yaml.template | sed "s/%service%/$service/g" > ./${service}/kube-depoly-service.yaml
-	sudo kubectl apply -f ./${service}/kube-depoly-service.yaml
-	sudo kubectl rollout restart deployment/${service}
 done
 
 # end
