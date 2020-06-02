@@ -31,6 +31,7 @@ public class Account implements Serializable {
 
     private String username;
     private String password;
+    private String repeatedPassword;
     private String email;
     private String firstName;
     private String lastName;
@@ -194,7 +195,15 @@ public class Account implements Serializable {
         this.bannerName = bannerName;
     }
 
-    @Override
+    public String getRepeatedPassword() {
+		return repeatedPassword;
+	}
+
+	public void setRepeatedPassword(String repeatedPassword) {
+		this.repeatedPassword = repeatedPassword;
+	}
+	
+	@Override
     public String toString() {
         return "{\n" + "\tusername:" + this.username + "\tpassword:" + this.password + "\temail:" + this.email
                 + "\tfirstName:" + this.firstName + "\tlastName:" + this.lastName + "\tstatus:" + this.status

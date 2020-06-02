@@ -32,7 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Servlet implementation class AccountRestServlet
  */
-@WebServlet("/insert-account")
+@WebServlet("/insert-order")
 public class InsertOrderServlet extends AbstractOrderServlet {
     private static final long serialVersionUID = 1L;
 
@@ -66,7 +66,7 @@ public class InsertOrderServlet extends AbstractOrderServlet {
         final Order order = mapper.readValue(request.getReader(), Order.class);
 
         if (order != null) {
-            InsertOrderServlet.LOG.error("order " + order.toString());
+            InsertOrderServlet.LOG.info("New Order requested : " + order.toString());
             this.service.insertOrder(order);
         } else {
             InsertOrderServlet.LOG.error("insert-order NO ORDER to insert");

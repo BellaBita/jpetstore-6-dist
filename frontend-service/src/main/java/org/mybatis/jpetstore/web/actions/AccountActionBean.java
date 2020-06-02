@@ -45,201 +45,224 @@ import net.sourceforge.stripes.validation.Validate;
 @SessionScope
 public class AccountActionBean extends AbstractActionBean {
 
-    private static final long serialVersionUID = 5499663666155758178L;
+	private static final long serialVersionUID = 5499663666155758178L;
 
-    private final static Logger LOG = Logger.getLogger(AccountActionBean.class);
+	private final static Logger LOG = Logger.getLogger(AccountActionBean.class);
 
-    private static final String NEW_ACCOUNT = "/WEB-INF/jsp/account/NewAccountForm.jsp";
-    private static final String EDIT_ACCOUNT = "/WEB-INF/jsp/account/EditAccountForm.jsp";
-    private static final String SIGNON = "/WEB-INF/jsp/account/SignonForm.jsp";
+	private static final String NEW_ACCOUNT = "/WEB-INF/jsp/account/NewAccountForm.jsp";
+	private static final String EDIT_ACCOUNT = "/WEB-INF/jsp/account/EditAccountForm.jsp";
+	private static final String SIGNON = "/WEB-INF/jsp/account/SignonForm.jsp";
 
-    private static final List<String> LANGUAGE_LIST;
-    private static final List<String> CATEGORY_LIST;
+	private static final List<String> LANGUAGE_LIST;
+	private static final List<String> CATEGORY_LIST;
 
-    @SpringBean
-    private transient AccountService accountService;
+	@SpringBean
+	private transient AccountService accountService;
 
-    @SpringBean
-    private transient CatalogService catalogService;
+	@SpringBean
+	private transient CatalogService catalogService;
 
-    private Account account = new Account();
-    private List<Product> myList;
-    private boolean authenticated;
+	private Account account = new Account();
+	private List<Product> myList;
+	private boolean authenticated;
+	private String repeatedPassword;
+	
+	static {
+		final List<String> langList = new ArrayList<>();
+		langList.add("english");
+		langList.add("japanese");
+		LANGUAGE_LIST = Collections.unmodifiableList(langList);
 
-    static {
-        final List<String> langList = new ArrayList<>();
-        langList.add("english");
-        langList.add("japanese");
-        LANGUAGE_LIST = Collections.unmodifiableList(langList);
+		final List<String> catList = new ArrayList<>();
+		catList.add("FISH");
+		catList.add("DOGS");
+		catList.add("REPTILES");
+		catList.add("CATS");
+		catList.add("BIRDS");
+		CATEGORY_LIST = Collections.unmodifiableList(catList);
+	}
 
-        final List<String> catList = new ArrayList<>();
-        catList.add("FISH");
-        catList.add("DOGS");
-        catList.add("REPTILES");
-        catList.add("CATS");
-        catList.add("BIRDS");
-        CATEGORY_LIST = Collections.unmodifiableList(catList);
-    }
+	public Account getAccount() {
+		return this.account;
+	}
 
-    public Account getAccount() {
-        return this.account;
-    }
+	public String getUsername() {
+		return this.account.getUsername();
+	}
 
-    public String getUsername() {
-        return this.account.getUsername();
-    }
+	public String getRepeatedPassword() {
+		return repeatedPassword;
+	}
 
-    /**
-     * Set the user name for the account.
-     *
-     * @param username
-     *            name of the user
-     */
-    @Validate(required = true, on = { "signon", "newAccount", "editAccount" })
-    public void setUsername(final String username) {
-        this.account.setUsername(username);
-    }
+	public void setRepeatedPassword(String repeatedPassword) {
+		this.repeatedPassword = repeatedPassword;
+	}
 
-    public String getPassword() {
-        return this.account.getPassword();
-    }
+	/**
+	 * Set the user name for the account.
+	 *
+	 * @param username name of the user
+	 */
+	@Validate(required = true, on = { "signon", "newAccount", "editAccount" })
+	public void setUsername(final String username) {
+		this.account.setUsername(username);
+	}
 
-    /**
-     * Set the password for the account.
-     *
-     * @param password
-     *            password for the account
-     */
-    @Validate(required = true, on = { "signon", "newAccount", "editAccount" })
-    public void setPassword(final String password) {
-        this.account.setPassword(password);
-    }
+	public String getPassword() {
+		return this.account.getPassword();
+	}
 
-    public List<Product> getMyList() {
-        return this.myList;
-    }
+	/**
+	 * Set the password for the account.
+	 *
+	 * @param password password for the account
+	 */
+	@Validate(required = true, on = { "signon", "newAccount", "editAccount" })
+	public void setPassword(final String password) {
+		this.account.setPassword(password);
+	}
 
-    public void setMyList(final List<Product> myList) {
-        this.myList = myList;
-    }
+	public List<Product> getMyList() {
+		return this.myList;
+	}
 
-    public List<String> getLanguages() {
-        return AccountActionBean.LANGUAGE_LIST;
-    }
+	public void setMyList(final List<Product> myList) {
+		this.myList = myList;
+	}
 
-    public List<String> getCategories() {
-        return AccountActionBean.CATEGORY_LIST;
-    }
+	public List<String> getLanguages() {
+		return AccountActionBean.LANGUAGE_LIST;
+	}
 
-    /**
-     * Forward to new account.
-     *
-     * @return forward resolution
-     */
-    public Resolution newAccountForm() {
-        return new ForwardResolution(AccountActionBean.NEW_ACCOUNT);
-    }
+	public List<String> getCategories() {
+		return AccountActionBean.CATEGORY_LIST;
+	}
 
-    /**
-     * New account.
-     *
-     * @return the resolution
-     * @throws IOException
-     */
-    public Resolution newAccount() {
-        this.accountService.insertAccount(this.account);
-        AccountActionBean.LOG.info("account " + this.account.toString());
-        this.account = this.accountService.getAccount(this.account.getUsername());
-        AccountActionBean.LOG.info(this.account != null ? "account" : "nope");
-        this.myList = this.catalogService.getProductListByCategory(this.account.getFavouriteCategoryId());
-        this.authenticated = true;
-        return new RedirectResolution(CatalogActionBean.class);
-    }
+	/**
+	 * Forward to new account.
+	 *
+	 * @return forward resolution
+	 */
+	public Resolution newAccountForm() {
+		return new ForwardResolution(AccountActionBean.NEW_ACCOUNT);
+	}
 
-    /**
-     * Edits the account form.
-     *
-     * @return the resolution
-     */
-    public Resolution editAccountForm() {
-        return new ForwardResolution(AccountActionBean.EDIT_ACCOUNT);
-    }
+	/**
+	 * @SessionScope + @SpringBean + transient 멤버 체크
+	 */
+	private void checkAutowiredSpringBean() {
+		if (this.catalogService == null) {
+			this.catalogService = this.getSpringBean(CatalogService.class);
+		}
+		if (this.accountService == null) {
+			this.accountService = this.getSpringBean(AccountService.class);
+		}
+	}
 
-    /**
-     * Edits the account.
-     *
-     * @return the resolution
-     * @throws IOException
-     */
-    public Resolution editAccount() {
-        this.accountService.updateAccount(this.account);
-        this.account = this.accountService.getAccount(this.account.getUsername());
-        this.myList = this.catalogService.getProductListByCategory(this.account.getFavouriteCategoryId());
-        return new RedirectResolution(CatalogActionBean.class);
-    }
+	/**
+	 * New account.
+	 *
+	 * @return the resolution
+	 * @throws IOException
+	 */
+	public Resolution newAccount() {
+		this.checkAutowiredSpringBean();
+		this.accountService.insertAccount(this.account);
+		AccountActionBean.LOG.info("account " + this.account.toString());
+		this.account = this.accountService.getAccount(this.account.getUsername());
+		AccountActionBean.LOG.info(this.account != null ? "account" : "nope");
+		this.myList = this.catalogService.getProductListByCategory(this.account.getFavouriteCategoryId());
+		this.authenticated = true;
+		return new RedirectResolution(CatalogActionBean.class);
+	}
 
-    /**
-     * Signon form.
-     *
-     * @return the resolution
-     */
-    @DefaultHandler
-    public Resolution signonForm() {
-        return new ForwardResolution(AccountActionBean.SIGNON);
-    }
+	/**
+	 * Edits the account form.
+	 *
+	 * @return the resolution
+	 */
+	public Resolution editAccountForm() {
+		return new ForwardResolution(AccountActionBean.EDIT_ACCOUNT);
+	}
 
-    /**
-     * Signon.
-     *
-     * @return the resolution
-     */
-    public Resolution signon() {
+	/**
+	 * Edits the account.
+	 *
+	 * @return the resolution
+	 * @throws IOException
+	 */
+	public Resolution editAccount() {
+		this.checkAutowiredSpringBean();
+		this.accountService.updateAccount(this.account);
+		this.account = this.accountService.getAccount(this.account.getUsername());
+		this.myList = this.catalogService.getProductListByCategory(this.account.getFavouriteCategoryId());
+		return new RedirectResolution(CatalogActionBean.class);
+	}
 
-        this.account = this.accountService.getAccount(this.getUsername(), this.getPassword());
+	/**
+	 * Signon form.
+	 *
+	 * @return the resolution
+	 */
+	@DefaultHandler
+	public Resolution signonForm() {
+		return new ForwardResolution(AccountActionBean.SIGNON);
+	}
 
-        if (this.account == null) {
-            final String value = "Invalid username or password.  Signon failed.";
-            this.setMessage(value);
-            this.clear();
-            return new ForwardResolution(AccountActionBean.SIGNON);
-        } else {
-            this.account.setPassword(null);
-            this.myList = this.catalogService.getProductListByCategory(this.account.getFavouriteCategoryId());
-            this.authenticated = true;
-            final HttpSession s = this.context.getRequest().getSession();
-            // this bean is already registered as /actions/Account.action
-            s.setAttribute("accountBean", this);
-            return new RedirectResolution(CatalogActionBean.class);
-        }
-    }
+	/**
+	 * Signon.
+	 *
+	 * @return the resolution
+	 */
+	public Resolution signon() {
 
-    /**
-     * Signoff.
-     *
-     * @return the resolution
-     */
-    public Resolution signoff() {
-        this.context.getRequest().getSession().invalidate();
-        this.clear();
-        return new RedirectResolution(CatalogActionBean.class);
-    }
+		this.checkAutowiredSpringBean();
+		this.account = this.accountService.getAccount(this.getUsername(), this.getPassword());
 
-    /**
-     * Checks if is authenticated.
-     *
-     * @return true, if is authenticated
-     */
-    public boolean isAuthenticated() {
-        return this.authenticated && (this.account != null) && (this.account.getUsername() != null);
-    }
+		if (this.account == null) {
+			final String value = "Invalid username or password.  Signon failed.";
+			this.setMessage(value);
+			this.clear();
+			return new ForwardResolution(AccountActionBean.SIGNON);
+		} else {
+			this.checkAutowiredSpringBean();
+			this.account.setPassword(null);
+			this.myList = this.catalogService.getProductListByCategory(this.account.getFavouriteCategoryId());
+			this.authenticated = true;
+			final HttpSession s = this.context.getRequest().getSession();
+			// this bean is already registered as /actions/Account.action
+			s.setAttribute("accountBean", this);
+			return new RedirectResolution(CatalogActionBean.class);
+		}
+	}
 
-    /**
-     * Clear.
-     */
-    public void clear() {
-        this.account = new Account();
-        this.myList = null;
-        this.authenticated = false;
-    }
+	/**
+	 * Signoff.
+	 *
+	 * @return the resolution
+	 */
+	public Resolution signoff() {
+		this.context.getRequest().getSession().invalidate();
+		this.clear();
+		return new RedirectResolution(CatalogActionBean.class);
+	}
+
+	/**
+	 * Checks if is authenticated.
+	 *
+	 * @return true, if is authenticated
+	 */
+	public boolean isAuthenticated() {
+		return this.authenticated && (this.account != null) && (this.account.getUsername() != null);
+	}
+
+	/**
+	 * Clear.
+	 */
+	public void clear() {
+		this.account = new Account();
+		this.myList = null;
+		this.authenticated = false;
+	}
 
 }

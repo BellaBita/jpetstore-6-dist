@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CatalogService extends AbstractService {
 
-	private static final String CATALOG_SERVICE = "http://catalog" + AbstractService.getDomain() + ":"
+	private static final String CATALOG_SERVICE = "http://catalog-service" + AbstractService.getDomain() + ":"
 			+ getServicePort() + "/jpetstore-catalog/";
 
 	private static final String GET_CATEGORY = "category?categoryId=";

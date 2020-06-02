@@ -28,7 +28,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountService extends AbstractService {
 
-    private static final String ACCOUNT_SERVICE = "http://account" + AbstractService.getDomain()
+    private static final String ACCOUNT_SERVICE = "http://account-service" + AbstractService.getDomain()
             + ":" + getServicePort() + "/jpetstore-account/";
     private static final String REQUEST_USER = AccountService.ACCOUNT_SERVICE + "request-user";
     private static final String INSERT_ACCOUNT_REQUEST = AccountService.ACCOUNT_SERVICE + "insert-account";

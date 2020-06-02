@@ -18,6 +18,8 @@ package org.mybatis.jpetstore.web.actions;
 
 import java.io.Serializable;
 
+import org.springframework.web.context.ContextLoader;
+
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.SimpleMessage;
@@ -29,30 +31,37 @@ import net.sourceforge.stripes.action.SimpleMessage;
  */
 public abstract class AbstractActionBean implements ActionBean, Serializable {
 
-  private static final long serialVersionUID = -1767714708233127983L;
+	private static final long serialVersionUID = -1767714708233127983L;
 
-  protected static final String ERROR = "/WEB-INF/jsp/common/Error.jsp";
+	protected static final String ERROR = "/WEB-INF/jsp/common/Error.jsp";
 
-  protected transient ActionBeanContext context;
+	protected transient ActionBeanContext context;
 
-  /**
-   * Set the message to the given value string.
-   *
-   * @param value
-   *            the message
-   */
-  protected void setMessage(final String value) {
-    this.context.getMessages().add(new SimpleMessage(value));
-  }
+	/**
+	 * Set the message to the given value string.
+	 *
+	 * @param value the message
+	 */
+	protected void setMessage(final String value) {
+		this.context.getMessages().add(new SimpleMessage(value));
+	}
 
-  @Override
-  public ActionBeanContext getContext() {
-    return this.context;
-  }
+	@Override
+	public ActionBeanContext getContext() {
+		return this.context;
+	}
 
-  @Override
-  public void setContext(final ActionBeanContext context) {
-    this.context = context;
-  }
+	@Override
+	public void setContext(final ActionBeanContext context) {
+		this.context = context;
+	}
+
+	protected <T> T getSpringBean(Class<T> requiredType) {
+		return ContextLoader.getCurrentWebApplicationContext().getBean(requiredType);
+	}
+	
+	protected Object getSpringBean(String beanName) {
+		return ContextLoader.getCurrentWebApplicationContext().getBean(beanName);
+	}
 
 }

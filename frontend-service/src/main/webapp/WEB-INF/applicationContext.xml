@@ -36,6 +36,8 @@
     <!-- enable transaction demarcation with annotations -->
     <tx:annotation-driven />
     
+    <!-- 
     <bean id="CatalogService" class="org.mybatis.jpetstore.service.CatalogService">
  	</bean>
+ 	 -->
 </beans>

@@ -56,6 +56,8 @@ data:
   LENA_LICENSE_DOWNLOAD_URL: "manager"
   LENA_CONTRACT_CODE: "pghzJJqTdzaGtTuASr8yfw=="
   JAVA_DOMAIN_CACHE_TTL: "3"
+  JPETSTORE_DOMAIN: ".default.svc.cluster.local"
+  SERVICE_PORT: "8180"
 
 ---
 apiVersion: v1
