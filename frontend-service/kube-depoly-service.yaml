@@ -1,0 +1,73 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    matchLabels:
+      type: frontend-service
+      app: jpetstore
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  minReadySeconds: 10
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        type: frontend-service
+        app: jpetstore
+    spec:
+      containers:
+      - name: frontend-service
+        image: 10.81.208.53:5000/jpetstore-frontend-service
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8180
+        envFrom:
+        - configMapRef:
+            name: configmap-frontend-service
+        readinessProbe:
+          httpGet:
+            path: /jpetstore-frontend/
+            port: 8180
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /jpetstore-frontend/
+            port: 8180
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      volumes:
+      terminationGracePeriodSeconds: 0
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-frontend-service
+data:
+  LENA_CONFIG_TEMPLATE_DOWNLOAD: "Y"
+  LENA_CONFIG_TEMPLATE_ID: "frontend-service"
+  LENA_MANAGER_ADDRESS: "lena-manager.default.svc.cluster.local:7700"
+  LENA_MANAGER_KEY: "p5IsZQME5ORlIf2hbi0ooyXzpHD7Tz6gjc9yYySyU7VxsBD508y0O%2BBa6jiC4aiHLdr%2BXhCYzSNNxWkkKNM1ow%3D%3D"
+  LENA_LICENSE_DOWNLOAD_URL: "manager"
+  LENA_CONTRACT_CODE: "pghzJJqTdzaGtTuASr8yfw=="
+  JAVA_DOMAIN_CACHE_TTL: "3"
+  JPETSTORE_DOMAIN: ".default.svc.cluster.local"
+  SERVICE_PORT: "8180"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    type: frontend-service
+    app: jpetstore
+  ports:
+  - port: 8180
+    targetPort: 8180
