@@ -102,7 +102,7 @@
 </stripes:form>
 --%>
 <form method="post" action="/jpetstore-frontend/actions/Catalog.action">
-	<input size="14" name="keyword" type="text" <%=request.getParameter("keyword") %>>
+	<input size="14" name="keyword" type="text" value="<%=request.getParameter("keyword")==null?"" : request.getParameter("keyword") %>">
 	<input name="searchProducts" type="submit" value="Search">
 </form>
 </div>
