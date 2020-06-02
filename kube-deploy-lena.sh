@@ -1,6 +1,6 @@
 #!/bin/bash
 
-f [ -z "${SERVICE_NAMES}" ]; then
+if [ -z "${SERVICE_NAMES}" ]; then
 	SERVICE_NAMES="account,catalog,frontend,order"
 fi
 
