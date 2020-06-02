@@ -93,11 +93,19 @@
 </div>
 
 <div id="Search">
-<div id="SearchContent"><stripes:form
+<div id="SearchContent">
+<%-- 
+<stripes:form
 	beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
 	<stripes:text name="keyword" size="14" />
 	<stripes:submit name="searchProducts" value="Search" />
-</stripes:form></div>
+</stripes:form>
+--%>
+<form method="post" action="/jpetstore-frontend/actions/Catalog.action">
+	<input size="14" name="keyword" type="text" <%=request.getParameter("keyword") %>>
+	<input name="searchProducts" type="submit" value="Search">
+</form>
+</div>
 </div>
 
 <div id="QuickLinks"><stripes:link
