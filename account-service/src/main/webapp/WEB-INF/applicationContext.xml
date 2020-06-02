@@ -30,20 +30,20 @@
      http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
     <!-- in-memory database and a datasource -->
+    <!-- 
     <jdbc:embedded-database id="dataSource">
         <jdbc:script location="classpath:database/jpetstore-hsqldb-schema.sql"/>
         <jdbc:script location="classpath:database/jpetstore-hsqldb-dataload.sql"/>
     </jdbc:embedded-database>
+     -->
     
    	<!-- Lookup JNDI for datasource -->
-    <!-- 
 	<bean id="dataSource"
 		class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName">
 			<value>java:comp/env/jdbc/lena</value>
 		</property>
 	</bean>
-	 -->
 
 	<!--  <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
