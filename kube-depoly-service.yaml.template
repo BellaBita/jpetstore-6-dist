@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: %service%-service
-        image: lenasupport/jpetstore-%service%-service
+        image: 10.81.208.53:5000/jpetstore-%service%-service
         imagePullPolicy: Always
         ports:
         - containerPort: 8180
