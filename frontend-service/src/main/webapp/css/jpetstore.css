@@ -265,6 +265,7 @@ body>#PoweredBy {
   voice-family: inherit;
   height: 9ex;
   text-align: right;
+  font-size: x-small;
 }
 
 body>#Banner {
