@@ -90,7 +90,6 @@
 	</c:if>
 </c:if> 
 	<img align="middle" src="../images/separator.gif" /> <a href="../help.html">?</a>
-	<img align="middle" src="../images/separator.gif" /> %ver%
 </div>
 </div>
 

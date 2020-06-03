@@ -31,6 +31,8 @@
 	</c:if>
 </c:if></div>
 
+<div id="BuildNumber">%ver%</div>
+
 </div>
 
 </body>
