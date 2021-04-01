@@ -54,7 +54,7 @@ data:
   LENA_MANAGER_ADDRESS: "lena-manager.default.svc.cluster.local:7700"
   LENA_MANAGER_KEY: "p5IsZQME5ORlIf2hbi0ooyXzpHD7Tz6gjc9yYySyU7VxsBD508y0O%2BBa6jiC4aiHLdr%2BXhCYzSNNxWkkKNM1ow%3D%3D"
   LENA_LICENSE_DOWNLOAD_URL: "manager"
-  LENA_CONTRACT_CODE: "pghzJJqTdzaGtTuASr8yfw=="
+  LENA_CONTRACT_CODE: "MaazOi62W4MrOLgUP4y2RQ=="
   JAVA_DOMAIN_CACHE_TTL: "3"
   JPETSTORE_DOMAIN: ".default.svc.cluster.local"
   SERVICE_PORT: "8180"
