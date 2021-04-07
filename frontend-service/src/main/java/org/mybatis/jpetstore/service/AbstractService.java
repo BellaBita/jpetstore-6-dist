@@ -46,7 +46,7 @@ public abstract class AbstractService {
 	protected <T> T getSingleValue(final String url, final Class<T> clazz) {
 		try {
 			AbstractService.LOG.info("get from remote " + url);
-			final NetHttpTransport httpTransport = new NetHttpTransport();
+			final NetHttpTransport httpTransport = new NetHttpTransport(); 
 			final HttpRequest request = httpTransport.createRequestFactory().buildGetRequest(new GenericUrl(url));
 			final HttpResponse response = request.execute();
 
