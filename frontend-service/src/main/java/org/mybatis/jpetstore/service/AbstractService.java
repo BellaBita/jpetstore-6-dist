@@ -90,7 +90,8 @@ public abstract class AbstractService {
 			}
 		} catch (ConnectException e) {
 			e.printStackTrace();
-			throw new ConnectionFailException(e);
+			//throw new ConnectionFailException(e);
+			return null;
 		} catch (final IOException e) {
 			e.printStackTrace();
 			return null;
