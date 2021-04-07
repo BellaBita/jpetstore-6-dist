@@ -2,6 +2,7 @@ package org.mybatis.jpetstore.service;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.ConnectException;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -87,10 +88,13 @@ public abstract class AbstractService {
 			} else {
 				return null;
 			}
+		} catch (ConnectException e) {
+			e.printStackTrace();
+			throw new ConnectionFailException(e);
 		} catch (final IOException e) {
 			e.printStackTrace();
 			return null;
-		}
+		} 
 	}
 
 	/**
